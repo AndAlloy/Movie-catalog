@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.Year;
-import java.time.YearMonth;
 
 @Getter
 @Setter
@@ -16,6 +15,7 @@ import java.time.YearMonth;
 public class Movie {
 
     @Id
+    @GeneratedValue
     private long id;
 
     private String title;
@@ -28,5 +28,11 @@ public class Movie {
 
     private int year;
 
-
+    public Movie(String title, String description, double rating, int ratingCount, int year) {
+        this.title = title;
+        this.description = description;
+        this.rating = rating;
+        this.ratingCount = ratingCount;
+        this.year = year;
+    }
 }
