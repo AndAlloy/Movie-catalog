@@ -1,6 +1,5 @@
 package com.andalloy.movie.catalog.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,10 +10,11 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    @Value("${mail.properties.username}")
-    private String username;
-    @Value("${mail.properties.password}")
-    private String password;
+    private final MailProperties properties;
+
+    public MailConfig(MailProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     public JavaMailSender getMailSender() {
@@ -23,8 +23,8 @@ public class MailConfig {
         sender.setHost("smtp.gmail.com");
         sender.setPort(587);
 
-        sender.setUsername(username);
-        sender.setPassword(password);
+        sender.setUsername(properties.getUsername());
+        sender.setPassword(properties.getPassword());
 
         Properties properties = sender.getJavaMailProperties();
 
