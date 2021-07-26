@@ -35,17 +35,20 @@ public class User implements UserDetails {
 
     private String pass;
 
+    private String confirmationCode;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "id")
     private List<Movie> favouriteList;
 
-    public User(String name, String email, String pass, Role role) {
+    public User(String name, String email, String pass, String confirmationCode, Role role) {
         this.name = name;
         this.email = email;
         this.pass = pass;
         this.role = role;
+        this.confirmationCode = confirmationCode;
     }
 
     @Override
@@ -80,6 +83,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return getConfirmationCode().equals("confirmed");
     }
 }

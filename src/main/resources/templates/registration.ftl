@@ -5,18 +5,21 @@
     <title>Register</title>
 </head>
 <body>
-${error_message!"Hello"}
+
 
 <form action="/registration" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     <label>Username
         <input name="name" type="text">
     </label>
-    <label>Password
-        <input name="password" type="password">
+    <label>Email*
+        <input name="email" type="text" required>
     </label>
-    <label>Confrim password
-        <input name="password_confirm" type="password">
+    <label>Password*
+        <input name="password" type="password" required>
+    </label>
+    <label>Confrim password*
+        <input name="password_confirm" type="password" required>
     </label>
     <input type="submit">
 </form>
