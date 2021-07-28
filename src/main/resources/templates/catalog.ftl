@@ -8,7 +8,9 @@
     <#if user.role=="ADMIN">
     <form action="/catalog" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-
+            <label>IMDb ID
+                <input type="text" name="imdbId">
+            </label><br>
             <label>Title
                 <input type="text" name="title">
             </label><br>
@@ -29,17 +31,31 @@
     </#if>
     <br>
 
-    <a href="/myaccount">User info</a>
+    <a href="/my-account">My account</a>
     <h3>Movie list:</h3>
-    <#list movies as movie>
-        <h2>${movie.title} </h2>
-        ${movie.description} (${movie.year?string("##0")}) <br>
-        &#x2B50; ${movie.rating} (${movie.ratingCount} rates) <br>
-        <#if user.role=="ADMIN">
-            <a href="/catalog/delete/${movie.id}">Delete</a>
-        </#if>
-
-    </#list>
-
+        <ul>
+            <#list movies as movie>
+                <li>
+                <h3>&#x1F4AC; ${movie.title} </h3>
+                ${movie.description} (${movie.year?string("##0")}) <br>
+                &#x2B50; ${movie.rating} (${movie.ratingCount} rates) <br>
+                    <button onclick="window.location.href='/item/add-favourite/${movie.id}';">
+                        Add to favourite
+                    </button>
+<#--                <a href="/item/add-favourite/${movie.id}">Add to favourite</a>-->
+                <#if user.role=="ADMIN">
+<#--                    <a href="/catalog/delete/${movie.id}"> - Delete from catalog</a>-->
+                    <button onclick="window.location.href='/catalog/delete/${movie.id}';">
+                        Delete from catalog
+                    </button>
+                </#if>
+                </li>
+            </#list>
+        </ul>
+    <br>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <input type="submit" value="Logout">
+</form>
 </body>
 </html>

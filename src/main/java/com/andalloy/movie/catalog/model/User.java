@@ -6,13 +6,16 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,8 +43,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "id")
-    private List<Movie> favouriteList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "favourite_list", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "favourite")
+    private List<Long> favouriteList;
 
     public User(String name, String email, String pass, String confirmationCode, Role role) {
         this.name = name;

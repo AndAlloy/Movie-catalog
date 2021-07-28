@@ -36,7 +36,9 @@ public class MovieController {
 
     @PostMapping
     public String addMovie(@RequestParam Map<String, String> form) {
-        Movie movie = new Movie(form.get("title"),
+        Movie movie = new Movie(
+                form.get("imdbId"),
+                form.get("title"),
                 form.get("description"),
                 Double.parseDouble(form.get("rating")),
                 Integer.parseInt(form.get("ratingCount")),

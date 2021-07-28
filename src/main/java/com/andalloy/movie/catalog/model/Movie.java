@@ -18,6 +18,8 @@ public class Movie {
     @GeneratedValue
     private long id;
 
+    private String imdbId;
+
     private String title;
 
     private String description;
@@ -28,7 +30,8 @@ public class Movie {
 
     private int year;
 
-    public Movie(String title, String description, double rating, int ratingCount, int year) {
+    public Movie(String imdbId,String title, String description, double rating, int ratingCount, int year) {
+        this.imdbId = imdbId;
         this.title = title;
         this.description = description;
         this.rating = rating;
