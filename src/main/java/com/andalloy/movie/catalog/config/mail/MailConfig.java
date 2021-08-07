@@ -22,7 +22,6 @@ public class MailConfig {
 
         sender.setHost("smtp.gmail.com");
         sender.setPort(587);
-
         sender.setUsername(properties.getUsername());
         sender.setPassword(properties.getPassword());
 

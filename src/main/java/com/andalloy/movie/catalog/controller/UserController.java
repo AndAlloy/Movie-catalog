@@ -39,14 +39,13 @@ public class UserController {
     @GetMapping("/my-account")
     public String viewHome(
             @AuthenticationPrincipal User user,
-             Model model
-            ) {
+            Model model
+    ) {
         User foundUser = userRepo.findByName(user.getUsername()).orElseThrow(NoSuchElementException::new);
         List<Long> favouriteList = foundUser.getFavouriteList();
         List<Movie> movies = movieRepo.findAll().stream()
                 .filter(movie -> favouriteList.contains(movie.getId()))
                 .collect(Collectors.toList());
-
 
         model.addAttribute("user", user);
         model.addAttribute("movies", movies);
@@ -78,5 +77,4 @@ public class UserController {
 
         return "redirect:/my-account";
     }
-
 }

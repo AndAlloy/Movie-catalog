@@ -12,6 +12,4 @@ import org.springframework.context.annotation.Configuration;
 public class MailProperties {
     private String username;
     private String password;
-
-
 }

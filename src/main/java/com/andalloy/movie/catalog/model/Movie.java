@@ -47,7 +47,7 @@ public class Movie {
     @Column(name = "review")
     private Map<Long, String> review;
 
-    public Movie(String imdbId,String title, String description, String shortDescription, double rating, int ratingCount, int year, String image) {
+    public Movie(String imdbId, String title, String description, String shortDescription, double rating, int ratingCount, int year, String image) {
         this.imdbId = imdbId;
         this.title = title;
         this.description = description;

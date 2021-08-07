@@ -6,7 +6,6 @@ import com.andalloy.movie.catalog.model.User;
 import com.andalloy.movie.catalog.repository.MovieRepo;
 import com.andalloy.movie.catalog.repository.UserRepo;
 import com.andalloy.movie.catalog.service.MovieService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,15 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Controller
 public class MovieController {
@@ -31,9 +25,6 @@ public class MovieController {
     private final MovieRepo movieRepo;
     private final UserRepo userRepo;
     private final MovieService movieService;
-
-    @Value("${image.dir}")
-    private String directoryPath;
 
     public MovieController(MovieRepo movieRepo, UserRepo userRepo, MovieService movieService) {
         this.movieRepo = movieRepo;
@@ -56,7 +47,7 @@ public class MovieController {
         String imdbId = form.get("imdbId");
 
         MovieData movieData = movieService.getMovieData(imdbId);
-        movieRepo.save(getMovie(movieData));
+        movieRepo.save(convertToMovie(movieData));
 
         return "redirect:/catalog";
     }
@@ -88,11 +79,10 @@ public class MovieController {
 
         movieRepo.save(movie);
 
-        return "redirect:/item/"+id;
+        return "redirect:/item/" + id;
     }
 
-
-    private Movie getMovie(MovieData md) {
+    private Movie convertToMovie(MovieData md) {
         return new Movie(
                 md.getId(),
                 md.getTitle().getTitle(),
@@ -103,26 +93,6 @@ public class MovieController {
                 md.getTitle().getYear(),
                 md.getTitle().getImage().getUrl()
         );
-    }
-
-    private String savePhoto(MultipartFile multipartFile) {
-        File dir = Paths.get(directoryPath).toFile();
-
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-
-
-        String randomName = UUID.randomUUID().toString();
-        String result = randomName + "." + multipartFile.getOriginalFilename();
-        File newFile = Paths.get(directoryPath + "/" + result).toFile();
-
-        try {
-            multipartFile.transferTo(newFile);
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
-        return result;
     }
 
     @GetMapping("/delete/{id}")

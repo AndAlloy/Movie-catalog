@@ -34,8 +34,7 @@ public class AdminController {
 
     @GetMapping("/add-admin/{id}")
     public String makeAdmin(
-            @PathVariable String id,
-            Model model
+            @PathVariable String id
     ) {
         long userId = Long.parseLong(id);
         User user = userRepo.findById(userId).orElseThrow(NoSuchElementException::new);
@@ -47,8 +46,7 @@ public class AdminController {
 
     @GetMapping("/delete-admin/{id}")
     public String deleteAdmin(
-            @PathVariable String id,
-            Model model
+            @PathVariable String id
     ) {
         long userId = Long.parseLong(id);
         User user = userRepo.findById(userId).orElseThrow(NoSuchElementException::new);

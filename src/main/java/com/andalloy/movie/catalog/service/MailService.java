@@ -13,10 +13,10 @@ public class MailService {
     }
 
     public void sendConfirmCode(
-        String to,
-        String code
+            String to,
+            String code
     ) {
-        String message = "Hello, please, to confirm your email click the link below:\n"+
+        String message = "Hello, please, to confirm your email click the link below:\n" +
                 "localhost:8080/registration/confirm/" + code;
 
         String subject = "Confirm your email - Movie Catalog";
@@ -37,6 +37,5 @@ public class MailService {
         message.setText(text);
 
         javaMailSender.send(message);
-
     }
 }

@@ -9,10 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application {
 
-	@SneakyThrows
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-
-	}
-
+    @SneakyThrows
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 }
