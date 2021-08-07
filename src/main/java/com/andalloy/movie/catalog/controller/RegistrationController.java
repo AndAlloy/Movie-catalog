@@ -43,7 +43,7 @@ public class RegistrationController {
             @RequestParam("password_confirm") String passwordConfirm,
             Model model
     ) {
-        if(!password.equals(passwordConfirm)) {
+        if (!password.equals(passwordConfirm)) {
             model.addAttribute("error_message", "passwords not match");
             return "registration";
         }

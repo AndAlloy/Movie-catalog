@@ -8,11 +8,10 @@
 <button onclick="window.location.href='/catalog';">
 Catalog
 </button><br>
-ID - ${user.id}<br>
-Name - ${user.name}<br>
+<#--Hi, ${user.name}<br>-->
 
 <ul style="list-style-type: none; display: flex; flex-direction: column">
-<#list movies as movie>
+
     <li style="padding-top: 15px; display: flex">
         <span style="width: 175px;">
         <#if movie.image??>
@@ -28,7 +27,21 @@ Name - ${user.name}<br>
             Delete from favourite
         </button>
     </li>
-</#list>
 </ul>
+<form action="/item/${movie.id}" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <label>Write review -
+        <input type="text" name="comment">
+    </label>
+    <input type="submit">
+</form>
+
+<p>User reviews:</p>
+<#list movie.review as propName, propValue>
+    <ul>
+        <li>${propValue}</li>
+    </ul>
+
+</#list>
 </body>
 </html>
