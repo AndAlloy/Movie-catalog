@@ -81,7 +81,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
     </style>
-
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
@@ -93,12 +92,13 @@ ${message!""}
             <div class="login-header">
                 <h3>LOGIN</h3>
                 <p>Please enter your credentials to login.</p>
+                <p style="color: red">${error_message!""}</p>
             </div>
         </div>
         <form action="/login" method="post" class="login-form">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <label>
-                <input name="username" type="text" placeholder="username"/>
+                <input name="username" type="text" placeholder="email"/>
             </label>
             <label>
                 <input name="password" type="password" placeholder="password"/>

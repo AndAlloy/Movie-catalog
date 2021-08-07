@@ -73,7 +73,7 @@ public class MovieController {
     ) {
         String comment = form.get("comment");
         System.out.println(comment);
-        User foundUser = userRepo.findByName(user.getUsername()).orElseThrow(NoSuchElementException::new);
+        User foundUser = userRepo.findByEmail(user.getEmail()).orElseThrow(NoSuchElementException::new);
         Movie movie = movieRepo.findById(id).orElseThrow(NoSuchElementException::new);
         movie.getReview().put(foundUser.getId(), comment);
 

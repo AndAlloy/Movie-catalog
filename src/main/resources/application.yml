@@ -16,7 +16,3 @@ mail:
   properties:
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-
-image:
-  dir: "C:/Users/kormi/Pictures/java"
-

@@ -41,7 +41,7 @@ public class UserController {
             @AuthenticationPrincipal User user,
             Model model
     ) {
-        User foundUser = userRepo.findByName(user.getUsername()).orElseThrow(NoSuchElementException::new);
+        User foundUser = userRepo.findByEmail(user.getEmail()).orElseThrow(NoSuchElementException::new);
         List<Long> favouriteList = foundUser.getFavouriteList();
         List<Movie> movies = movieRepo.findAll().stream()
                 .filter(movie -> favouriteList.contains(movie.getId()))
@@ -57,7 +57,7 @@ public class UserController {
             @PathVariable("id") long id,
             @AuthenticationPrincipal User user
     ) {
-        User foundUser = userRepo.findByName(user.getUsername()).orElseThrow(NoSuchElementException::new);
+        User foundUser = userRepo.findByEmail(user.getEmail()).orElseThrow(NoSuchElementException::new);
         Movie movie = movieRepo.findById(id).orElseThrow(NoSuchElementException::new);
         foundUser.getFavouriteList().add(movie.getId());
         userRepo.save(foundUser);
@@ -70,7 +70,7 @@ public class UserController {
             @PathVariable("id") long id,
             @AuthenticationPrincipal User user
     ) {
-        User foundUser = userRepo.findByName(user.getUsername()).orElseThrow(NoSuchElementException::new);
+        User foundUser = userRepo.findByEmail(user.getEmail()).orElseThrow(NoSuchElementException::new);
         Movie movie = movieRepo.findById(id).orElseThrow(NoSuchElementException::new);
         foundUser.getFavouriteList().remove(movie.getId());
         userRepo.save(foundUser);
