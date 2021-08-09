@@ -1,4 +1,4 @@
-package com.andalloy.movie.catalog.config;
+package com.andalloy.movie.catalog.config.mail;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +12,4 @@ import org.springframework.context.annotation.Configuration;
 public class MailProperties {
     private String username;
     private String password;
-
-
 }

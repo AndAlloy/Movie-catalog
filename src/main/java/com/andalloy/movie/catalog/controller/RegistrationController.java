@@ -43,10 +43,11 @@ public class RegistrationController {
             @RequestParam("password_confirm") String passwordConfirm,
             Model model
     ) {
-        if(!password.equals(passwordConfirm)) {
-            model.addAttribute("error_message", "passwords not match");
+        if (!password.equals(passwordConfirm)) {
+            model.addAttribute("error_message", "Passwords not match!");
             return "registration";
         }
+
         String trim = name.trim();
         String confirmationCode = generateRandomCode();
         User user = new User(
@@ -57,11 +58,17 @@ public class RegistrationController {
                 Role.USER
         );
 
-        userRepo.save(user);
+        Optional<User> userOptional = userRepo.findByEmail(email);
 
+        if (userOptional.isPresent()) {
+            model.addAttribute("error_message", "User with this email already exists!");
+            return "registration";
+        }
+
+        userRepo.save(user);
         mailService.sendConfirmCode(email, confirmationCode);
 
-        return "redirect:/catalog";
+        return "confirm";
     }
 
     @GetMapping("/confirm/{code}")
@@ -71,9 +78,9 @@ public class RegistrationController {
             User fromDb = user.get();
             fromDb.setConfirmationCode("confirmed");
             userRepo.save(fromDb);
-            model.addAttribute("message", "Your account is activated");
+            model.addAttribute("error_message", "Your account is activated");
         } else {
-            model.addAttribute("message", "Your account is not activated");
+            model.addAttribute("error_message", "Your account is not activated");
         }
         return "login";
     }

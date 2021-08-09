@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,7 @@ public class User implements UserDetails {
     private String name;
 
     @Column(unique = true)
+    @Email(message = "Use valid mail")
     private String email;
 
     private String pass;

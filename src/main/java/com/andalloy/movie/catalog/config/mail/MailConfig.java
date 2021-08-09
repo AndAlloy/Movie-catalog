@@ -1,4 +1,4 @@
-package com.andalloy.movie.catalog.config;
+package com.andalloy.movie.catalog.config.mail;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,6 @@ public class MailConfig {
 
         sender.setHost("smtp.gmail.com");
         sender.setPort(587);
-
         sender.setUsername(properties.getUsername());
         sender.setPassword(properties.getPassword());
 

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
         header .header{
@@ -54,8 +52,6 @@
             padding: 15px;
             color: #FFFFFF;
             font-size: 14px;
-            /*-webkit-transition: all 0.3 ease;*/
-            /*transition: all 0.3 ease;*/
             cursor: pointer;
         }
         .form .message {
@@ -83,34 +79,19 @@
             -moz-osx-font-smoothing: grayscale;
         }
     </style>
+    <meta charset="UTF-8">
+    <title>Login</title>
 </head>
 <body>
 <div class="login-page">
     <div class="form">
         <div class="login">
             <div class="login-header">
-                <h3>REGISTRATION</h3>
-                <p>Please enter your credentials to register.</p>
-                <p style="color: red"> ${error_message!""}</p>
+                <h3>Confirm email</h3>
+                <p>Please, check your email and click confirmation link</p>
             </div>
         </div>
-        <form action="/registration" method="post" class="login-form">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <label>
-                <input name="name" type="text" placeholder="username*" required>
-            </label>
-            <label>
-                <input name="email" type="text" placeholder="email*" required/>
-            </label>
-            <label>
-                <input name="password" type="password" placeholder="password*" required/>
-            </label>
-            <label>
-                <input name="password_confirm" type="password" placeholder="confirm password*" required/>
-            </label>
-            <button>REGISTER</button>
-            <p class="message">Already registered? <a href="/login">Sign in</a></p>
-        </form>
+        <button onclick="window.location.href='/login'">CONTINUE</button>
     </div>
 </div>
 </body>
