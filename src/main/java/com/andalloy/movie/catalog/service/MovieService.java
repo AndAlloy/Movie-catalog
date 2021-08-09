@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class MovieService {
 
-    @Value("$API_KEY")
+    @Value("${api.key: API_KEY}")
     private String apiKey;
 
     private final MovieRepo movieRepo;
