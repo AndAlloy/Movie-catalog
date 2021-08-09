@@ -11,12 +11,10 @@
             text-align: center;
             font-family: arial, sans-serif;
         }
-
-        .price {
-            color: grey;
-            font-size: 22px;
+        .card {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+            background-color: #fff;
         }
-
         .card .down {
             border: none;
             outline: 0;
@@ -25,12 +23,41 @@
             background-color: #000;
             text-align: center;
             cursor: pointer;
-            width: 100%;
+            width: 90%;
             font-size: 15px;
+            transition-duration: 0.4s;
         }
 
         .card .down:hover {
             opacity: 0.7;
+            transform: translateY(-1px);
+        }
+
+        .card .down:active {
+            opacity: 0.7;
+            transform: translateY(1px);
+        }
+
+        .down {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background-color: #328f8a;
+            background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+            width: 85%;
+            margin-bottom: 10px;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        body {
+            background-color: #328f8a;
+            background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     </style>
 </head>
