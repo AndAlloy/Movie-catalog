@@ -47,6 +47,10 @@ public class Movie {
     @Column(name = "review")
     private Map<Long, String> review;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "temporary_review")
+    private Map<Long, String> temporaryReview;
+
     public Movie(String imdbId, String title, String description, String shortDescription, double rating, int ratingCount, int year, String image) {
         this.imdbId = imdbId;
         this.title = title;

@@ -33,8 +33,11 @@ public class UserController {
             Model model
     ) {
         User user = userService.getUserById(userId);
-        model.addAttribute("user", user);
+        List<Long> favouriteListId = user.getFavouriteList();
+        List<Movie> movies = movieService.getFavouriteMoviesList(favouriteListId);
 
+        model.addAttribute("user", user);
+        model.addAttribute("movies", movies);
         return "user";
     }
 
