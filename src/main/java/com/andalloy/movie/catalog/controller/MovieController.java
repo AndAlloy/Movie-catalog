@@ -63,26 +63,50 @@ public class MovieController {
     ) {
         Movie movie = movieService.geMovieFromDb(id);
 
+        String userReview = movie.getTemporaryReview().get(user.getId());
+        String approved = "false";
+        if (movie.getReview().containsKey(user.getId())) {
+            userReview = movie.getReview().get(user.getId());
+            approved = "true";
+        }
+        movie.getReview().remove(user.getId());
+
+        model.addAttribute("userReview", userReview);
         model.addAttribute("movie", movie);
         model.addAttribute("user", user);
+        model.addAttribute("approved", approved);
+
         return "item";
     }
 
     @PostMapping("/item/{id}")
-    public String addComment(
+    public String addTempComment(
             @PathVariable("id") long id,
             @AuthenticationPrincipal User user,
             @RequestParam Map<String, String> form
     ) {
         String comment = form.get("comment");
-        System.out.println(comment);
         User foundUser = userService.getUserFromDb(user);
         Movie movie = movieService.geMovieFromDb(id);
-        movie.getReview().put(foundUser.getId(), comment);
+        movie.getTemporaryReview().put(foundUser.getId(), comment);
 
         movieRepo.save(movie);
 
         return "redirect:/item/" + id;
+    }
+
+    @GetMapping("/delete/item-{itemId}/{userId}")
+    public String deleteComment(
+            @PathVariable("userId") long userId,
+            @PathVariable("itemId") long itemId
+    ) {
+        Movie movie = movieService.geMovieFromDb(itemId);
+        movie.getTemporaryReview().remove(userId);
+        movie.getReview().remove(userId);
+
+        movieRepo.save(movie);
+
+        return "redirect:/item/" + itemId;
     }
 
     @GetMapping("/delete/{id}")

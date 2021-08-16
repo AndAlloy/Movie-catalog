@@ -50,12 +50,15 @@ public class User implements UserDetails {
     @Column(name = "favourite")
     private List<Long> favouriteList;
 
+    private boolean nonBlocked;
+
     public User(String name, String email, String pass, String confirmationCode, Role role) {
         this.name = name;
         this.email = email;
         this.pass = pass;
         this.role = role;
         this.confirmationCode = confirmationCode;
+        this.nonBlocked = true;
     }
 
     @Override
@@ -80,7 +83,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.nonBlocked;
     }
 
     @Override
