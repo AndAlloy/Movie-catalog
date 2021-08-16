@@ -25,23 +25,25 @@
         <div style="width: 400px; padding-left: 30px; padding-right: 30px;">${movie.description}</div>
     </li>
 </ul>
-<#if !userReview??>
-    <form action="/item/${movie.id}" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <label>Write review -
-            <input type="text" name="comment">
-        </label>
-        <input type="submit">
-    </form>
-</#if>
+<#if user.nonRestricted?string('true', 'false') == 'true'>
+    <#if !userReview??>
+        <form action="/item/${movie.id}" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <label>Write review -
+                <input type="text" name="comment">
+            </label>
+            <input type="submit">
+        </form>
+    </#if>
 
-<#if userReview??>
-    <p>My review: (Moderated: ${approved})</p>
-    <span style="padding: 15px; background-color: lightgrey;">${userReview}</span>
-    <button style="padding: 5px; margin-left: 10px"
-            onclick="window.location.href='/delete/item-${movie.id}/${user.id}';">
-        Delete review
-    </button>
+    <#if userReview??>
+        <p>My review: (Moderated: ${approved})</p>
+        <span style="padding: 15px; background-color: lightgrey;">${userReview}</span>
+        <button style="padding: 5px; margin-left: 10px"
+                onclick="window.location.href='/delete/item-${movie.id}/${user.id}';">
+            Delete review
+        </button>
+    </#if>
 </#if>
 
 <p>User reviews:</p>
@@ -51,7 +53,6 @@
             <div style="display: flex; flex-direction: row;  border: 2px">
                 <button style="background-image: url(https://i.ibb.co/Hgs161z/default.jpg); background-size: cover; height: 50px; width: 50px;"
                         onclick="window.location.href='/user/${propName}';">
-
                 </button>
                 <span style="padding: 15px; background-color: lightgrey;">User #${propName} -- ${propValue}</span>
             </div>
