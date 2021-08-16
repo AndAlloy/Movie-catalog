@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasAnyAuthority('MODERATOR')")
@@ -35,7 +36,11 @@ public class ModeratorController {
     public String showTempComments(
             Model model
     ) {
-        List<Movie> movieList = movieRepo.findAll();
+        List<Movie> movieList = movieRepo.findAll()
+                .stream()
+                .filter(movie -> !movie.getTemporaryReview().isEmpty())
+                .collect(Collectors.toList());
+
         model.addAttribute("movieList", movieList);
 
         return "moder-control";
@@ -57,12 +62,34 @@ public class ModeratorController {
         return "redirect:/moderate";
     }
 
-    @GetMapping("/block/user-{userId}")
+    @GetMapping("/block/item-{itemId}/{userId}")
     public String blockUser(
-            @PathVariable("userId") Long userId
+            @PathVariable("userId") Long userId,
+            @PathVariable("itemId") long itemId
     ) {
+        Movie movie = movieService.geMovieFromDb(itemId);
         User foundUser = userService.getUserById(userId);
+
         foundUser.setNonBlocked(false);
+        userRepo.save(foundUser);
+        movie.getTemporaryReview().remove(userId);
+        movieRepo.save(movie);
+
+        return "redirect:/moderate";
+    }
+
+    @GetMapping("/restrict/item-{itemId}/{userId}")
+    public String restrictUser(
+            @PathVariable("userId") Long userId,
+            @PathVariable("itemId") long itemId
+    ) {
+        Movie movie = movieService.geMovieFromDb(itemId);
+        User foundUser = userService.getUserById(userId);
+
+        foundUser.setNonRestricted(false);
+        userRepo.save(foundUser);
+        movie.getTemporaryReview().remove(userId);
+        movieRepo.save(movie);
 
         return "redirect:/moderate";
     }

@@ -42,6 +42,10 @@ public class User implements UserDetails {
 
     private String confirmationCode;
 
+    private boolean nonBlocked;
+
+    private boolean nonRestricted;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -49,8 +53,6 @@ public class User implements UserDetails {
     @CollectionTable(name = "favourite_list", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "favourite")
     private List<Long> favouriteList;
-
-    private boolean nonBlocked;
 
     public User(String name, String email, String pass, String confirmationCode, Role role) {
         this.name = name;

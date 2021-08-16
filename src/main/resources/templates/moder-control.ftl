@@ -5,6 +5,7 @@
     <title>Moderate</title>
 </head>
 <body>
+Moderating page:
 <#list movieList as movie>
     <p>
         ${movie.title} -
@@ -17,7 +18,10 @@
             <button onclick="window.location.href='/delete/item-${movie.id}/${propName}';">
                 Delete review
             </button>
-            <button onclick="window.location.href='#';">
+            <button onclick="window.location.href='/restrict/item-${movie.id}/${propName}';">
+                Restrict user
+            </button>
+            <button onclick="window.location.href='/block/item-${movie.id}/${propName}';">
                 Block user
             </button>
         </#list>
