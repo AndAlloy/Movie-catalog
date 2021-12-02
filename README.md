@@ -1,4 +1,6 @@
 # movie.catalog
+(EOL)
+
 This is Java/Spring Framework project for my educational purposes.
 
 Stack: 
