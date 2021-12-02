@@ -1,5 +1,5 @@
 # movie.catalog
-(EOL)
+(EOL) Project deprecated
 
 This is Java/Spring Framework project for my educational purposes.
 
