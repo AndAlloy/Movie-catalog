@@ -1,0 +1,29 @@
+spring:
+  freemarker:
+    expose-request-attributes: true
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalog
+    username: postgres
+    password: 1
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        web: INFO
+
+mail:
+  properties:
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+
+api:
+  key: ${API_KEY}
