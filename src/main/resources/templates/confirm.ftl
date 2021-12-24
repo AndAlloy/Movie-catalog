@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" href = "https://i.ibb.co/nzNd0ZX/clapperboard-cinema-icon-190873.png" type = "image/x-icon">
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-        header .header{
-            background-color: #fff;
-            height: 45px;
+        body {
+            background-color: #328f8a;
+            background-image: linear-gradient(
+                    91deg, #328f8a, #08ac4b);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
         header a img{
             width: 134px;
             margin-top: 4px;
@@ -54,30 +62,13 @@
             font-size: 14px;
             cursor: pointer;
         }
-        .form .message {
-            margin: 15px 0 0;
-            color: #b3b3b3;
-            font-size: 12px;
-        }
+
         .form .message a {
             color: #4CAF50;
             text-decoration: none;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 300px;
-            margin: 0 auto;
-        }
 
-        body {
-            background-color: #328f8a;
-            background-image: linear-gradient(45deg,#328f8a,#08ac4b);
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
     </style>
     <meta charset="UTF-8">
     <title>Login</title>

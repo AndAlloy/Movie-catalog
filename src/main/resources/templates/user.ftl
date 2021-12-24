@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>MOVIK - ${user.name}<br></title>
+    <link rel = "icon" href = "https://i.ibb.co/nzNd0ZX/clapperboard-cinema-icon-190873.png" type = "image/x-icon">
+    <style><#include "static/css/style.css"></style>
 </head>
 <body>
-<button onclick="window.location.href='/catalog';">
-Catalog
-</button><br>
-ID - ${user.id}<br>
-Name - ${user.name}<br>
+<#include "header.ftl">
 
-<ul style="list-style-type: none; display: flex; flex-direction: column">
 <#list movies as movie>
-    <li style="padding-top: 15px; display: flex">
-        <span style="width: 175px;">
-        <#if movie.image??>
-            <img src="${movie.image}" alt="movie-image" height="220px" style="padding-bottom: 10px">
-        </#if> <br>
-            &#9193; ${movie.title} (${movie.year?string("##0")})<br>
-        &#x2B50; ${movie.rating} (${movie.ratingCount} rates)
 
-        </span>
-        <div style="width: 400px; padding-left: 30px; padding-right: 30px;">${movie.description}</div>
+    <div class="hero-container">
+    <div class="ticket-container-d">
+        <div class="under-poster">
+            <a href="/item/${movie.id}">
+                <#if movie.image??>
+                    <img src="${movie.image}" class="poster" alt="Movie poster"/>
+                </#if>
+            </a>
+        </div>
+        <div class="ticket_content">
+            <h2 class="ticket__movie-title">${movie.title}</h2>
+            <p class="ticket__movie-slogan">
+                &#x2B50; ${movie.rating} (${movie.ratingCount} rates)
+                (${movie.year?string("##0")})
+            </p>
+            <p class="movie-description">${movie.description}</p>
+            <button class="round-button" style="height: fit-content" onclick="window.location.href='/item/delete-favourite/${movie.id}';">
+                Delete from favourite
+            </button>
+        </div>
+    </div>
+    </div>
 
-        <button style="height: 27px" onclick="window.location.href='/item/delete-favourite/${movie.id}';">
-            Delete from favourite
-        </button>
-    </li>
 </#list>
-</ul>
+<#include "footer.ftl">
 </body>
 </html>

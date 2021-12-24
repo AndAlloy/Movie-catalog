@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "icon" href = "https://i.ibb.co/nzNd0ZX/clapperboard-cinema-icon-190873.png" type = "image/x-icon">
     <meta charset="UTF-8">
     <title>Registration</title>
     <style>
@@ -48,14 +50,12 @@
             text-transform: uppercase;
             outline: 0;
             background-color: #328f8a;
-            background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+            background-image: linear-gradient(90deg,#328f8a,#08ac4b);
             width: 100%;
             border: 0;
             padding: 15px;
             color: #FFFFFF;
             font-size: 14px;
-            /*-webkit-transition: all 0.3 ease;*/
-            /*transition: all 0.3 ease;*/
             cursor: pointer;
         }
         .form .message {
