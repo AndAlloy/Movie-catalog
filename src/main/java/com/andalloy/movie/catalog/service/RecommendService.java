@@ -7,25 +7,21 @@ import com.andalloy.movie.catalog.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.apache.commons.collections4.CollectionUtils.getCardinalityMap;
 
 @Service
 public class RecommendService {
     private final MovieRepo movieRepo;
-    private final UserRepo userRepo;
 
-    public RecommendService(MovieRepo movieRepo, UserRepo userRepo) {
+    public RecommendService(MovieRepo movieRepo) {
         this.movieRepo = movieRepo;
-        this.userRepo = userRepo;
     }
 
-    public List<Movie> getRecommended(User user) {
+    public ArrayList<ArrayList<Movie>> getRecommended(User user) {
         Map<String, Integer> userCardinalityMap = getUserCardinalityMap(user);
         List<String> favGenres = new ArrayList<>(userCardinalityMap.keySet());
 
@@ -43,17 +39,17 @@ public class RecommendService {
                 .filter(movie -> !user.getFavouriteList().contains(movie.getId()))
                 .collect(Collectors.toList());
 
+        ArrayList<ArrayList<Movie>> lists = new ArrayList<>();
+        lists.add((ArrayList<Movie>) recMovie);
+        lists.add((ArrayList<Movie>) recMovieSecondary);
 
-        return  Stream.of(recMovie, recMovieSecondary)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-
+        return lists;
     }
 
     private Map<String, Integer> getUserCardinalityMap(User user) {
         List<Movie> moviesInFavourite = movieRepo.findAll().stream()
                 .filter(movie -> user.getFavouriteList().contains(movie.getId()))
-                .collect(Collectors.toList());
+                .toList();
         List<String> genresList = new ArrayList<>();
         for (Movie movie : moviesInFavourite) {
             genresList.addAll(movie.getGenres());
