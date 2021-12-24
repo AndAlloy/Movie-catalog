@@ -57,6 +57,7 @@ public class User implements UserDetails {
         this.role = role;
         this.confirmationCode = confirmationCode;
         this.nonBlocked = true;
+        this.nonRestricted = true;
     }
 
     @Override

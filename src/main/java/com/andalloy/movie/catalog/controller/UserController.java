@@ -62,14 +62,11 @@ public class UserController {
     ) {
         User foundUser = userService.getUserFromDb(user);
         Movie movie = movieService.geMovieFromDb(id);
-        if (!foundUser.getFavouriteList().contains(movie.getId())){
+        if (!foundUser.getFavouriteList().contains(movie.getId())) {
             foundUser.getFavouriteList().add(movie.getId());
-            userRepo.save(foundUser);
         }
-
-
-
-        return "redirect:/index";
+        userRepo.save(foundUser);
+        return "redirect:/item/" + id;
     }
 
     @GetMapping("/item/delete-favourite/{id}")
@@ -84,4 +81,11 @@ public class UserController {
 
         return "redirect:/my-account";
     }
+
+    @GetMapping("/logout")
+    public String deleteFromFavouriteList() {
+        return "login";
+    }
+
+
 }

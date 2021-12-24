@@ -4,6 +4,7 @@ import com.andalloy.movie.catalog.model.Role;
 import com.andalloy.movie.catalog.model.User;
 import com.andalloy.movie.catalog.repository.UserRepo;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,12 @@ public class AdminController {
     }
 
     @GetMapping
-    public String getAdminPage(Model model) {
+    public String getAdminPage(
+            Model model,
+            @AuthenticationPrincipal User user
+    ) {
         List<User> users = userRepo.findAll();
+        users.removeIf(user1 -> user1.getId() == user.getId());
         model.addAttribute("users", users);
 
         return "admin-control";
@@ -39,6 +44,18 @@ public class AdminController {
         long userId = Long.parseLong(id);
         User user = userRepo.findById(userId).orElseThrow(NoSuchElementException::new);
         user.setRole(Role.ADMIN);
+        userRepo.save(user);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/add-moderator/{id}")
+    public String makeModer(
+            @PathVariable String id
+    ) {
+        long userId = Long.parseLong(id);
+        User user = userRepo.findById(userId).orElseThrow(NoSuchElementException::new);
+        user.setRole(Role.MODERATOR);
         userRepo.save(user);
 
         return "redirect:/admin";

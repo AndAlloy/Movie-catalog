@@ -1,6 +1,9 @@
 spring:
   freemarker:
     expose-request-attributes: true
+  main:
+    lazy-initialization: true
+
 
   jpa:
     open-in-view: true
@@ -12,6 +15,10 @@ spring:
     username: postgres
     password: 1
     driver-class-name: org.postgresql.Driver
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
 
 logging:
   level:

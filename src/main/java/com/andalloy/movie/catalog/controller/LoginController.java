@@ -19,6 +19,7 @@ public class LoginController {
             model.addAttribute("error_message", "Email or password is wrong! Check it and try again.");
             return "login";
         }
+
         return "login";
     }
 }

@@ -14,6 +14,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -26,10 +28,12 @@ public class MovieService {
     private String apiKey;
 
     private final MovieRepo movieRepo;
+    private final UserService userService;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public MovieService(MovieRepo movieRepo) {
+    public MovieService(MovieRepo movieRepo, UserService userService) {
         this.movieRepo = movieRepo;
+        this.userService = userService;
     }
 
     public MovieData getMovieData(String imdbId) throws NullPointerException {
@@ -87,4 +91,15 @@ public class MovieService {
                 .filter(movie -> listId.contains(movie.getId()))
                 .collect(Collectors.toList());
     }
+
+    public HashMap<String, String> getUserReviews(Movie movie) {
+        ArrayList<Long> userIds = new ArrayList<>(movie.getReview().keySet());
+        return userIds.stream()
+                .collect(Collectors.toMap(userId ->
+                                userService.getUserById(userId).getName(),
+                        userId -> movie.getReview().get(userId),
+                        (a, b) -> b, HashMap::new)
+                );
+    }
+
 }

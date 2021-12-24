@@ -7,6 +7,7 @@ import com.andalloy.movie.catalog.repository.UserRepo;
 import com.andalloy.movie.catalog.service.MovieService;
 import com.andalloy.movie.catalog.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,8 @@ public class ModeratorController {
 
     @GetMapping("/moderate")
     public String showTempComments(
-            Model model
+            Model model,
+            @AuthenticationPrincipal User user
     ) {
         List<Movie> movieList = movieRepo.findAll()
                 .stream()
@@ -42,6 +44,7 @@ public class ModeratorController {
                 .collect(Collectors.toList());
 
         model.addAttribute("movieList", movieList);
+        model.addAttribute("user", userService.buildUserDto(user));
 
         return "moder-control";
     }

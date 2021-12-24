@@ -25,13 +25,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registration/**")
+                .antMatchers("/registration/**", "/catalog/**", "/item/**")
                 .permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
                 .and()
                 .csrf();
     }
